@@ -1,9 +1,11 @@
 {
   "name": "polymer-tinymce",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
     "Jalal Fathi <jfathi.mail@gmail.com>"
   ],
+  "keywords": ["web-components", "html editor", "Polymer"],
+  "description":"A Polymer integration of the tinymce HTML editor.",
   "license": "MIT",
   "ignore": [
     "**/.*",
