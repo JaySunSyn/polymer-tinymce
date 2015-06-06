@@ -8,3 +8,23 @@ A tinymce HTML Editor as an Polymer Element.
 	  	tinyplugins='["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]'
 ></polymer-tinymce>
 ```
+
+Get and set content:
+
+```
+<script>
+    Polymer({
+
+        is: "demo-element",
+
+        getContent:function(){
+        	this.$.contentInput.value = this.$.editor.getContent();
+        },
+
+        setContent:function(){
+        	this.$.editor.setContent(this.$.contentInput.value);
+        }
+
+      });
+</script>
+```
