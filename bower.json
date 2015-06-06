@@ -1,0 +1,19 @@
+{
+  "name": "polymer-tinymce",
+  "version": "0.0.0",
+  "authors": [
+    "Jalal Fathi <jfathi.mail@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tinymce": "~4.1.10",
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}
