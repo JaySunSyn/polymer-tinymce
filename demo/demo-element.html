@@ -1,0 +1,35 @@
+<link rel="import" href="../../paper-button/paper-button.html">
+<link rel="import" href="../../paper-input/paper-input.html">
+<link rel="import" href="../polymer-tinymce.html">
+
+<dom-module id="demo-element" is="dom-bind">
+  <template>
+
+	  <polymer-tinymce id="editor"
+	  	tinytoolbar="insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image" 
+	  	tinyplugins='["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]'
+	  ></polymer-tinymce>
+
+	  <paper-input id="contentInput" placeholder="Content" value="Hi this is <strong>Jalal</strong>!"></paper-input>
+	  <paper-button on-tap="setContent" raised>Set Content</paper-button>
+	  <paper-button on-tap="getContent" raised>Get Content</paper-button>
+
+  </template>
+
+  <script>
+      Polymer({
+
+        is: "demo-element",
+
+        getContent:function(){
+        	this.$.contentInput.value = this.$.editor.getContent();
+        },
+
+        setContent:function(){
+        	this.$.editor.setContent(this.$.contentInput.value);
+        }
+
+      });
+  </script>
+
+</dom-module>
