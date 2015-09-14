@@ -5,7 +5,8 @@
     "Jalal Fathi <jfathi.mail@gmail.com>"
   ],
   "keywords": ["web-components", "html", "editor", "text", "Polymer"],
-  "description":"A Polymer integration of the tinymce HTML editor.",
+  "description": "A Polymer integration of the tinymce HTML editor.",
+  "main": "polymer-tinymce.html"
   "license": "MIT",
   "ignore": [
     "**/.*",
