@@ -5,7 +5,7 @@
 <dom-module id="polymer-tinymce">
 
   <template>
-  	<textarea name="content" style="width:100%" class="te"></textarea>
+  	<textarea id="polymerTinymceTextarea" name="content" style="width:100%" class="te"></textarea>
   </template>
 
 </dom-module>
@@ -40,7 +40,7 @@
 
     initEditor:function(){
       tinymce.init({
-        selector: "textarea",
+        selector: "#polymerTinymceTextarea",
         plugins:this.tinyplugins,
         toolbar:this.tinytoolbar,
 
