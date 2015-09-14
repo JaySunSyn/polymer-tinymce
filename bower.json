@@ -6,7 +6,7 @@
   ],
   "keywords": ["web-components", "html", "editor", "text", "Polymer"],
   "description": "A Polymer integration of the tinymce HTML editor.",
-  "main": "polymer-tinymce.html"
+  "main": "polymer-tinymce.html",
   "license": "MIT",
   "ignore": [
     "**/.*",
