@@ -29,8 +29,13 @@
 
     	tinyplugins:{
     		type:Array,
-    		value:["advlist autolink lists link image charmap preview anchor"]
-    	}
+    		value:["advlist autolink lists link image charmap preview anchor fullscreen"]
+    	},
+
+      height: {
+        type: Number,
+        value: 168
+      }
     	
     },
 
@@ -43,6 +48,7 @@
         selector: "#polymerTinymceTextarea",
         plugins:this.tinyplugins,
         toolbar:this.tinytoolbar,
+        height: this.height,
 
       setup: function (ed) {
             ed.on('init', function(args) {
@@ -75,7 +81,10 @@
     },
 
     setContent:function(content){
-      tinyMCE.activeEditor.setContent(content);
+      if (tinyMCE && tinyMCE.activeEditor){
+        tinyMCE.activeEditor.setContent(content);
+      }
+      
     }
 
   });
