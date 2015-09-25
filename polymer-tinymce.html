@@ -32,6 +32,15 @@
     		value:["advlist autolink lists link image charmap preview anchor fullscreen"]
     	},
 
+      /* Html or an url that can be loaded from the editor. */
+      // [{title: 'Some title 1', description: 'Some desc 1', content: 'My content'}, 
+      // {title: 'Some title 2', description: 'Some desc 2', url: 'development.html'}]
+      templates: {
+        type: Array,
+        value: function () { return [] },
+        observer: 'initEditor'
+      },
+
       height: {
         type: Number,
         value: 168
@@ -46,6 +55,7 @@
     initEditor:function(){
       tinymce.init({
         selector: "#polymerTinymceTextarea",
+        templates: this.templates,
         plugins:this.tinyplugins,
         toolbar:this.tinytoolbar,
         height: this.height,
