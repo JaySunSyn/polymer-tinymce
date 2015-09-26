@@ -37,8 +37,7 @@
       // {title: 'Some title 2', description: 'Some desc 2', url: 'development.html'}]
       templates: {
         type: Array,
-        value: function () { return [] },
-        observer: 'initEditor'
+        value: function () { return [] }
       },
 
       height: {
@@ -48,37 +47,38 @@
       
     },
 
-    attached:function(){
-      this.initEditor();
+    attached: function(){
+      this.async(function () {
+        this.initEditor();
+      }.bind(this),100);
+      
     },
 
     initEditor:function(){
       tinymce.init({
         selector: "#polymerTinymceTextarea",
         templates: this.templates,
-        plugins:this.tinyplugins,
-        toolbar:this.tinytoolbar,
+        plugins: this.tinyplugins,
+        toolbar: this.tinytoolbar,
         height: this.height,
+        setup: function (ed) {
+              ed.on('init', function(args) {
 
-      setup: function (ed) {
-            ed.on('init', function(args) {
+                this.fire('tiny-init');
+                  
+              });
 
-              this.fire('tiny-init');
-                
-            });
+              ed.on('focus', function(e) {
 
-            ed.on('focus', function(e) {
+                  this.fire('tiny-focus');
 
-                this.fire('tiny-focus');
+              });
 
-            });
+              ed.on('NodeChange', function(e) {
+                  this.fire('tiny-node');
 
-            ed.on('NodeChange', function(e) {
-                this.fire('tiny-node');
-
-            });
-
-        }
+              });
+          }
       });
     },
 
