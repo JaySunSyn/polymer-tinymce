@@ -1,11 +1,11 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-button/paper-button.html">
-<script src="../import-tinymce/import-tinymce.html"></script>
+<link rel="import" href="../import-tinymce/import-tinymce.html">
 
 <dom-module id="polymer-tinymce">
 
   <template>
-  	<textarea id="polymerTinymceTextarea" name="content" style="width:100%" class="te"></textarea>
+    <textarea id="polymerTinymceTextarea" name="content" style="width:100%" class="te"></textarea>
   </template>
 
 </dom-module>
@@ -18,19 +18,19 @@
 
     properties:{
 
-    	// "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-    	
-    	tinytoolbar:{
-    		type:String,
-    		value:"undo | bullist"
-    	},
+      // "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+      
+      tinytoolbar:{
+        type:String,
+        value:"undo | bullist"
+      },
 
-    	// ["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]
+      // ["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]
 
-    	tinyplugins:{
-    		type:Array,
-    		value:["advlist autolink lists link image charmap preview anchor fullscreen"]
-    	},
+      tinyplugins:{
+        type:Array,
+        value:["advlist autolink lists link image charmap preview anchor fullscreen"]
+      },
 
       /* Html or an url that can be loaded from the editor. */
       // [{title: 'Some title 1', description: 'Some desc 1', content: 'My content'}, 
@@ -45,7 +45,7 @@
         type: Number,
         value: 168
       }
-    	
+      
     },
 
     attached:function(){
@@ -83,7 +83,7 @@
     },
 
     execCommand:function(command){
-    	tinyMCE.activeEditor.execCommand(command);
+      tinyMCE.activeEditor.execCommand(command);
     },
 
     getContent:function(){
@@ -100,5 +100,3 @@
   });
 
 </script>
-
-
