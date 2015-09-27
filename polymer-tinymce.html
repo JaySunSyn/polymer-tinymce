@@ -60,12 +60,9 @@
     },
 
     initEditor:function(){
-      if (this.baseUrl !== '') {
-        tinymce.baseUrl = this.baseUrl;
-      }
-      
       tinymce.init({
         selector: "#polymerTinymceTextarea",
+        document_base_url: his.baseUrl,
         templates: this.templates,
         plugins: this.tinyplugins,
         toolbar: this.tinytoolbar,
