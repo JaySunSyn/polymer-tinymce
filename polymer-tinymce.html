@@ -43,6 +43,11 @@
       height: {
         type: Number,
         value: 168
+      },
+
+      baseUrl: {
+        type: String,
+        value: ''
       }
       
     },
@@ -55,6 +60,10 @@
     },
 
     initEditor:function(){
+      if (this.baseUrl !== '') {
+        tinymce.baseUrl = this.baseUrl;
+      }
+      
       tinymce.init({
         selector: "#polymerTinymceTextarea",
         templates: this.templates,
