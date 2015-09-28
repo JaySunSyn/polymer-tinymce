@@ -48,19 +48,22 @@
       baseUrl: {
         type: String,
         value: '',
-        observer: 'initEditor'
+        observer: 'prepareInitEditor'
       }
       
     },
 
     attached: function(){
+      this.prepareInitEditor();
+    },
+
+    prepareInitEditor: function () {
       this.async(function () {
         this.initEditor();
       }.bind(this),100);
-      
     },
 
-    initEditor:function(){
+    initEditor:function () {
       
       if (this.baseUrl !== '') {
         tinymce.baseURL = this.baseUrl;
