@@ -1,11 +1,23 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../import-tinymce/import-tinymce.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <polymer-tinymce></polymer-tinymce>
+
+@group Seed Elements
+@element polymer-tinymce
+@demo demo/index.html
+@hero hero.svg
+-->
 
 <dom-module id="polymer-tinymce">
 
   <template>
-    <textarea id="polymerTinymceTextarea" name="content" style="width:100%" class="te"></textarea>
+    <textarea id="[[textareaId]]" name="content" style="width:100%" class="te"></textarea>
   </template>
 
 </dom-module>
@@ -48,12 +60,18 @@
       baseUrl: {
         type: String,
         value: ''
+      },
+
+      textareaId: {
+        type: String,
+        value: ''
       }
       
     },
 
     attached: function(){
       this.prepareInitEditor();
+      this.textareaId = this.guidGenerator();
     },
 
     prepareInitEditor: function () {
@@ -62,14 +80,14 @@
       }.bind(this),100);
     },
 
-    initEditor:function () {
+    initEditor: function () {
       
       if (this.baseUrl !== '') {
         tinymce.baseURL = this.baseUrl;
       }
       
       tinymce.init({
-        selector: "#polymerTinymceTextarea",
+        selector: '#' + this.textareaId,
         templates: this.templates,
         plugins: this.tinyplugins,
         toolbar: this.tinytoolbar,
@@ -95,19 +113,26 @@
       });
     },
 
-    execCommand:function(command){
+    execCommand: function(command){
       tinyMCE.activeEditor.execCommand(command);
     },
 
-    getContent:function(){
-      return tinyMCE.activeEditor.getContent();
+    getContent: function(){
+      return tinyMCE.get(this.textareaId).getContent();
     },
 
-    setContent:function(content){
-      if (tinyMCE && tinyMCE.activeEditor){
-        tinyMCE.activeEditor.setContent(content);
+    setContent: function(content){
+      if (tinyMCE && tinyMCE.get(this.textareaId)){
+        tinyMCE.get(this.textareaId).setContent(content);
       }
       
+    },
+
+    guidGenerator: function() {
+      var S4 = function() {
+         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+      };
+      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     }
 
   });

@@ -1,22 +1,43 @@
+<link rel="import" href="../../polymer/polymer.html">
+
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../polymer-tinymce.html">
 
 <dom-module id="demo-element" is="dom-bind">
+  <style>
+    section {
+      padding: 48px;
+    }
+  </style>
   <template>
+    <section>
+      <polymer-tinymce id="editor"
+        tinytoolbar="insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image" 
+        tinyplugins='["template advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]'
+        templates='[
+      {"title": "Some title 1", "description": "Some desc 1", "content": "My content"}, 
+      {"title": "Some title 2", "description": "Some desc 2", "url": "http://google.com"}]'
+      ></polymer-tinymce>
 
-	  <polymer-tinymce id="editor"
-	  	tinytoolbar="insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image" 
-	  	tinyplugins='["template advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]'
-      templates='[
-    {"title": "Some title 1", "description": "Some desc 1", "content": "My content"}, 
-    {"title": "Some title 2", "description": "Some desc 2", "url": "http://google.com"}]'
-	  ></polymer-tinymce>
+      <paper-input id="contentInput" placeholder="Content" value="Hi this is <strong>Jalal</strong>!"></paper-input>
+      <paper-button on-tap="setContent" raised>Set Content</paper-button>
+      <paper-button on-tap="getContent" raised>Get Content</paper-button>
+    </section>
 
-	  <paper-input id="contentInput" placeholder="Content" value="Hi this is <strong>Jalal</strong>!"></paper-input>
-	  <paper-button on-tap="setContent" raised>Set Content</paper-button>
-	  <paper-button on-tap="getContent" raised>Get Content</paper-button>
+    <section>
+      <polymer-tinymce id="editor2"
+        tinytoolbar="insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image" 
+        tinyplugins='["template advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]'
+        templates='[
+      {"title": "Some title 1", "description": "Some desc 1", "content": "My content"}, 
+      {"title": "Some title 2", "description": "Some desc 2", "url": "http://google.com"}]'
+      ></polymer-tinymce>
 
+      <paper-input id="contentInput2" placeholder="Content" value="Hi this is <strong>Jalal</strong>!"></paper-input>
+      <paper-button on-tap="setContent2" raised>Set Content</paper-button>
+      <paper-button on-tap="getContent2" raised>Get Content</paper-button>
+    </section>
   </template>
 
   <script>
@@ -25,11 +46,19 @@
         is: "demo-element",
 
         getContent:function(){
-        	this.$.contentInput.value = this.$.editor.getContent();
+          this.$.contentInput.value = this.$.editor.getContent();
         },
 
         setContent:function(){
-        	this.$.editor.setContent(this.$.contentInput.value);
+          this.$.editor.setContent(this.$.contentInput.value);
+        },
+
+        getContent2:function(){
+          this.$.contentInput2.value = this.$.editor2.getContent();
+        },
+
+        setContent2:function(){
+          this.$.editor2.setContent(this.$.contentInput2.value);
         }
 
       });
