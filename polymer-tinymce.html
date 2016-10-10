@@ -31,7 +31,7 @@ Example:
     properties:{
 
       // "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-      
+
       tinytoolbar:{
         type:String,
         value:"undo | bullist"
@@ -45,7 +45,7 @@ Example:
       },
 
       /* Html or an url that can be loaded from the editor. */
-      // [{title: 'Some title 1', description: 'Some desc 1', content: 'My content'}, 
+      // [{title: 'Some title 1', description: 'Some desc 1', content: 'My content'},
       // {title: 'Some title 2', description: 'Some desc 2', url: 'development.html'}]
       templates: {
         type: Array,
@@ -66,26 +66,23 @@ Example:
         type: String,
         value: ''
       }
-      
     },
+
+    observers: [
+      '_initEditor(textareaId)'
+    ],
 
     attached: function(){
-      this.prepareInitEditor();
-      this.textareaId = this.guidGenerator();
+      this.textareaId = this._getUniqueId();
     },
 
-    prepareInitEditor: function () {
-      this.async(function () {
-        this.initEditor();
-      }.bind(this),100);
-    },
+    _initEditor: function (textareaId) {
+      if (!textareaId || textareaId === '') return
 
-    initEditor: function () {
-      
       if (this.baseUrl !== '') {
         tinymce.baseURL = this.baseUrl;
       }
-      
+
       tinymce.init({
         selector: '#' + this.textareaId,
         templates: this.templates,
@@ -96,7 +93,7 @@ Example:
               ed.on('init', function(args) {
 
                 this.fire('tiny-init');
-                  
+
               });
 
               ed.on('focus', function(e) {
@@ -125,10 +122,9 @@ Example:
       if (tinyMCE && tinyMCE.get(this.textareaId)){
         tinyMCE.get(this.textareaId).setContent(content);
       }
-      
     },
 
-    guidGenerator: function() {
+    _getUniqueId: function() {
       var S4 = function() {
          return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
       };

@@ -13,7 +13,7 @@
   ],
   "main": "polymer-tinymce.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/JaySunSyn/polymer-tinymce",
   "ignore": [
     "/.*",
     "/test/"
