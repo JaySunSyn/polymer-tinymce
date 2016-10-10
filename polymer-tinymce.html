@@ -17,7 +17,7 @@ Example:
 <dom-module id="polymer-tinymce">
 
   <template>
-    <textarea id="[[textareaId]]" name="content" style="width:100%" class="te"></textarea>
+    <textarea id$="[[textareaId]]" name="content" style="width:100%" class="te"></textarea>
   </template>
 
 </dom-module>
@@ -77,7 +77,7 @@ Example:
     },
 
     _initEditor: function (textareaId) {
-      if (!textareaId || textareaId === '') return
+      if (!textareaId || textareaId === '') return;
 
       if (this.baseUrl !== '') {
         tinymce.baseURL = this.baseUrl;
