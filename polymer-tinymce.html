@@ -2,11 +2,25 @@
 <link rel="import" href="../import-tinymce/import-tinymce.html">
 
 <!--
-An element providing a solution to no problem in particular.
+HTML editor.
 
 Example:
 
     <polymer-tinymce></polymer-tinymce>
+
+Example:
+
+    <polymer-tinymce id="editor" menubar="false"></polymer-tinymce>
+
+Example:
+
+    <polymer-tinymce id="editor2"
+      tinytoolbar="insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+      tinyplugins='["template advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]'
+      templates='[
+    {"title": "Some title 1", "description": "Some desc 1", "content": "My content"},
+    {"title": "Some title 2", "description": "Some desc 2", "url": "http://google.com"}]'
+    ></polymer-tinymce>
 
 @group Seed Elements
 @element polymer-tinymce
@@ -17,7 +31,7 @@ Example:
 <dom-module id="polymer-tinymce">
 
   <template>
-    <textarea id$="[[textareaId]]" name="content" style="width:100%" class="te"></textarea>
+    <textarea id$="[[_textareaId]]" name="content" style="width:100%" class="te"></textarea>
   </template>
 
 </dom-module>
@@ -62,32 +76,44 @@ Example:
         value: ''
       },
 
-      textareaId: {
+      _textareaId: {
         type: String,
         value: ''
-      }
+      },
+
+      menubar: {
+        type: String,
+        value: 'file edit insert view format table tools',
+      },
+
+      noStatusbar: {
+        type: Boolean,
+        value: false,
+      },
     },
 
     observers: [
-      '_initEditor(textareaId)'
+      '_initEditor(_textareaId)'
     ],
 
     attached: function(){
-      this.textareaId = this._getUniqueId();
+      this._textareaId = this._getUniqueId();
     },
 
-    _initEditor: function (textareaId) {
-      if (!textareaId || textareaId === '') return;
+    _initEditor: function (_textareaId) {
+      if (!_textareaId || _textareaId === '') return;
 
       if (this.baseUrl !== '') {
         tinymce.baseURL = this.baseUrl;
       }
 
       tinymce.init({
-        selector: '#' + this.textareaId,
+        selector: '#' + this._textareaId,
         templates: this.templates,
         plugins: this.tinyplugins,
         toolbar: this.tinytoolbar,
+        menubar: this.menubar,
+        statusbar: !this.noStatusbar,
         height: this.height,
         setup: function (ed) {
               ed.on('init', function(args) {
@@ -115,12 +141,12 @@ Example:
     },
 
     getContent: function(){
-      return tinyMCE.get(this.textareaId).getContent();
+      return tinyMCE.get(this._textareaId).getContent();
     },
 
     setContent: function(content){
-      if (tinyMCE && tinyMCE.get(this.textareaId)){
-        tinyMCE.get(this.textareaId).setContent(content);
+      if (tinyMCE && tinyMCE.get(this._textareaId)){
+        tinyMCE.get(this._textareaId).setContent(content);
       }
     },
 
