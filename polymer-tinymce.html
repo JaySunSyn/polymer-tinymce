@@ -31,7 +31,7 @@ Example:
 <dom-module id="polymer-tinymce">
 
   <template>
-    <textarea id$="[[_textareaId]]" name="content" style="width:100%" class="te"></textarea>
+    <textarea id$="[[_textareaId]]" name="[[name]]" style="width:100%" class="te"></textarea>
   </template>
 
 </dom-module>
@@ -90,6 +90,12 @@ Example:
         type: Boolean,
         value: false,
       },
+
+      name: {
+        type: String,
+        value: 'content',
+        notify: true,
+      }
     },
 
     observers: [
