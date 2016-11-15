@@ -31,6 +31,5 @@ Get and set content:
 </script>
 ```
 
-![Demo Pic](http://www.synappses.com/wp-content/uploads/2015/06/tinymceDemo.png "Polymer-Tinymce")
 
 [Demo](http://jaysunsyn.github.io/polymer-tinymce)
