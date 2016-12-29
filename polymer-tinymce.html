@@ -138,7 +138,12 @@ Example:
                   this.fire('tiny-node');
 
               });
-          }
+            
+              ed.on('Change', function(e) {
+		        this.fire('tiny-change', e);
+	          }.bind(this));
+            
+          }.bind(this)
       });
     },
 
