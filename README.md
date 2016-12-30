@@ -39,6 +39,6 @@ Get and set content:
 </script>
 ```
 
-You may use shady dom in your project if you have problems initializing the editor.[See](https://www.polymer-project.org/1.0/docs/devguide/settings)
+You may use shady dom in your project if you have problems initializing the editor. [See here](https://www.polymer-project.org/1.0/docs/devguide/settings)
 
 [Demo](http://jaysunsyn.github.io/polymer-tinymce)
