@@ -29,11 +29,9 @@ Example:
 -->
 
 <dom-module id="polymer-tinymce">
-
   <template>
     <textarea id$="[[_textareaId]]" name="[[name]]" style="width:100%" class="te"></textarea>
   </template>
-
 </dom-module>
 
 <script>
@@ -42,35 +40,70 @@ Example:
 
     is: 'polymer-tinymce',
 
-    properties:{
-
-      // "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-
+    properties: {
+      /**
+       * The content of the editor.
+       * It is safer though to call getContent()
+       * whenever you need the content.
+       * Only updates on focus or node change.
+       */
+      value: {
+        type: String,
+        readOnly: true,
+      },
+      /**
+       * Options are: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+       */
       tinytoolbar:{
         type:String,
         value:"undo | bullist"
       },
 
-      // ["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]
-
+      /**
+       * Options are: ["advlist autolink lists link image charmap print preview anchor","searchreplace visualblocks code fullscreen","insertdatetime media table contextmenu paste"]
+       */
       tinyplugins:{
         type:Array,
         value:["advlist autolink lists link image charmap preview anchor fullscreen"]
       },
 
-      /* Html or an url that can be loaded from the editor. */
-      // [{title: 'Some title 1', description: 'Some desc 1', content: 'My content'},
-      // {title: 'Some title 2', description: 'Some desc 2', url: 'development.html'}]
+      /**
+       * The menubar options.
+       */
+      menubar: {
+        type: String,
+        value: 'file edit insert view format table tools',
+      },
+
+      /**
+       * If true, the status bar is hidden.
+       */
+      noStatusbar: {
+        type: Boolean,
+        value: false,
+      },
+
+      /**
+       * Html or an url that can be loaded from the editor. e.g.
+       * [{title: 'Some title 1', description: 'Some desc 1', content: 'My content'},
+       *  {title: 'Some title 2', description: 'Some desc 2', url: 'development.html'}]
+       */
       templates: {
         type: Array,
         value: function () { return [] }
       },
 
+      /**
+       * The height of the editor.
+       */
       height: {
         type: Number,
         value: 168
       },
 
+      /**
+       * Base URL of the root directory where TinyMCE is located.
+       */
       baseUrl: {
         type: String,
         value: ''
@@ -81,21 +114,31 @@ Example:
         value: ''
       },
 
-      menubar: {
-        type: String,
-        value: 'file edit insert view format table tools',
-      },
+      /**
+      Fires after the editor has been initialized.
+      This is after the editor
+      has been filled with contents.
+      @event tiny-init
+      */
 
-      noStatusbar: {
-        type: Boolean,
-        value: false,
-      },
+      /**
+      Fires when the editor gets focused.
+      @event tiny-focus
+      */
 
-      name: {
-        type: String,
-        value: 'content',
-        notify: true,
-      }
+      /**
+      Fires when the selection
+      is moved to a new location
+      or is the DOM is updated by some command.
+      This event enables you to update the UI
+      based on the current selection etc.
+      @event tiny-node
+      */
+
+      /**
+      Fires when contents is modified in the editor.
+      @event tiny-change
+      */
     },
 
     observers: [
@@ -122,39 +165,54 @@ Example:
         statusbar: !this.noStatusbar,
         height: this.height,
         setup: function (ed) {
-              ed.on('init', function(args) {
+          ed.on('init', function(args) {
+            this._updateValue();
+            this.fire('tiny-init', args);
+          }.bind(this));
 
-                this.fire('tiny-init');
+          ed.on('focus', function(e) {
+            this._updateValue();
+            this.fire('tiny-focus', e);
+          }.bind(this));
 
-              });
+          ed.on('NodeChange', function(e) {
+            this._updateValue();
+            this.fire('tiny-node', e);
+          }.bind(this));
 
-              ed.on('focus', function(e) {
-
-                  this.fire('tiny-focus');
-
-              });
-
-              ed.on('NodeChange', function(e) {
-                  this.fire('tiny-node');
-
-              });
-            
-              ed.on('Change', function(e) {
+          ed.on('Change', function(e) {
+            this._updateValue();
 		        this.fire('tiny-change', e);
-	          }.bind(this));
-            
-          }.bind(this)
+	        }.bind(this));
+
+        }.bind(this)
       });
     },
 
+    _updateValue() {
+      this.getContent();
+    },
+
+    /**
+     * Executes a specific command on the currently active editor.
+     */
     execCommand: function(command){
       tinyMCE.activeEditor.execCommand(command);
     },
 
+    /**
+     * Returns the content of the editor.
+     * Updates the value property.
+     */
     getContent: function(){
-      return tinyMCE.get(this._textareaId).getContent();
+      var content = tinyMCE.get(this._textareaId).getContent();
+      this._setValue(content);
+      return content;
     },
 
+    /**
+     * Sets the content of the editor.
+     */
     setContent: function(content){
       if (tinyMCE && tinyMCE.get(this._textareaId)){
         tinyMCE.get(this._textareaId).setContent(content);
@@ -163,7 +221,7 @@ Example:
 
     _getUniqueId: function() {
       var S4 = function() {
-         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
       };
       return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     }
