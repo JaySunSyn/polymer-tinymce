@@ -201,11 +201,17 @@ Example:
     },
 
     /**
-     * Returns the content of the editor.
+     * Gets the content from the editor instance, this will cleanup the content before it gets returned using
+     * the different cleanup rules options.
      * Updates the value property.
      */
-    getContent: function(){
-      var content = tinyMCE.get(this._textareaId).getContent();
+    getContent: function(options){
+      if (typeof options !== 'undefined') {
+        var content = tinyMCE.get(this._textareaId).getContent(options);
+      } else {
+        var content = tinyMCE.get(this._textareaId).getContent();
+      }
+
       this._setValue(content);
       return content;
     },
