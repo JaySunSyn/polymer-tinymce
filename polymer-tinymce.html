@@ -160,7 +160,7 @@ Example:
     },
 
     observers: [
-      '_initEditor(_textareaId)'
+      '_initEditor(_textareaId, initOptions, height, tinytoolbar, tinyplugins, menubar, noStatusbar, templates)'
     ],
 
     attached: function(){
@@ -213,6 +213,10 @@ Example:
         if(this.protectedInitOptions.indexOf(k) === -1) options[k] = this.initOptions[k];
       }
 
+      // Remove instance if exists
+      tinymce.remove(options['selector']);
+
+      // Initialize
       tinymce.init(options);
     },
 
@@ -233,6 +237,8 @@ Example:
      * Updates the value property.
      */
     getContent: function(options){
+      if (!tinyMCE || !tinyMCE.get(this._textareaId)) return;
+
       if (typeof options !== 'undefined') {
         var content = tinyMCE.get(this._textareaId).getContent(options);
       } else {
@@ -247,9 +253,8 @@ Example:
      * Sets the content of the editor.
      */
     setContent: function(content){
-      if (tinyMCE && tinyMCE.get(this._textareaId)){
-        tinyMCE.get(this._textareaId).setContent(content);
-      }
+      if (!tinyMCE  || !tinyMCE.get(this._textareaId)) return;
+      tinyMCE.get(this._textareaId).setContent(content);
     },
 
     _getUniqueId: function() {
