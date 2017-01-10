@@ -109,6 +109,24 @@ Example:
         value: ''
       },
 
+      /**
+       * Options TinyMCE's init function.
+       * Some options are already exposed by this element's properties.
+       */
+      initOptions: {
+        type: Object,
+        value() { return {} },
+      },
+
+      /**
+       * Only change this property if you know what you are doing.
+       * Attributes in this Array wont get overwritten by initOptions.
+       */
+      protectedInitOptions: {
+        type: Array,
+        value() { return ['selector', 'setup'] },
+      },
+
       _textareaId: {
         type: String,
         value: ''
@@ -156,7 +174,30 @@ Example:
         tinymce.baseURL = this.baseUrl;
       }
 
-      tinymce.init({
+      var setup = function (ed) {
+        ed.on('init', function(args) {
+          this._updateValue();
+          this.fire('tiny-init', args);
+        }.bind(this));
+
+        ed.on('focus', function(e) {
+          this._updateValue();
+          this.fire('tiny-focus', e);
+        }.bind(this));
+
+        ed.on('NodeChange', function(e) {
+          this._updateValue();
+          this.fire('tiny-node', e);
+        }.bind(this));
+
+        ed.on('Change', function(e) {
+          this._updateValue();
+          this.fire('tiny-change', e);
+        }.bind(this));
+
+      }.bind(this)
+
+      var options = {
         selector: '#' + this._textareaId,
         templates: this.templates,
         plugins: this.tinyplugins,
@@ -164,29 +205,15 @@ Example:
         menubar: this.menubar,
         statusbar: !this.noStatusbar,
         height: this.height,
-        setup: function (ed) {
-          ed.on('init', function(args) {
-            this._updateValue();
-            this.fire('tiny-init', args);
-          }.bind(this));
+        setup: setup
+      }
 
-          ed.on('focus', function(e) {
-            this._updateValue();
-            this.fire('tiny-focus', e);
-          }.bind(this));
+      // Overwrite/Set defaultOptions with initOptions
+      for (var k in this.initOptions) {
+        if(this.protectedInitOptions.indexOf(k) === -1) options[k] = this.initOptions[k];
+      }
 
-          ed.on('NodeChange', function(e) {
-            this._updateValue();
-            this.fire('tiny-node', e);
-          }.bind(this));
-
-          ed.on('Change', function(e) {
-            this._updateValue();
-		        this.fire('tiny-change', e);
-	        }.bind(this));
-
-        }.bind(this)
-      });
+      tinymce.init(options);
     },
 
     _updateValue() {
