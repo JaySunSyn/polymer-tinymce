@@ -1,0 +1,40 @@
+{
+  "name": "polymer-tinymce",
+  "authors": [
+    "Jalal Fathi <jfathi.mail@gmail.com>"
+  ],
+  "description": "A Polymer integration of the tinymce HTML editor.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "html",
+    "editor"
+  ],
+  "main": "polymer-tinymce.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/JaySunSyn/polymer-tinymce",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.1.0",
+    "paper-button": "PolymerElements/paper-button#~1.0.11",
+    "paper-input": "PolymerElements/paper-input#~1.1.7",
+    "import-tinymce": "^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  },
+  "_release": "7a966e1bd9",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "7a966e1bd908b4f532883003f5f004ed6ae478ff"
+  },
+  "_source": "https://github.com/JaySunSyn/polymer-tinymce.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/JaySunSyn/polymer-tinymce.git",
+  "_direct": true
+}

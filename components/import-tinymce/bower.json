@@ -1,0 +1,28 @@
+{
+  "name": "import-tinymce",
+  "version": "1.0.0",
+  "authors": [
+    "Jalal Fathi <jfathi.mail@gmail.com> (http://jalal.io)"
+  ],
+  "description": "The import element of the tinymce library.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "tinymce",
+    "import"
+  ],
+  "main": "import-tinymce.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/JaySunSyn/import-tinymce.git",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "tinymce": "~4.1.10"
+  },
+  "devDependencies": {}
+}
